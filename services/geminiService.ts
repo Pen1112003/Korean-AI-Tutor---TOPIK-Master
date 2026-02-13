@@ -15,51 +15,48 @@ export const analyzeLectureTranscription = async (transcription: string): Promis
     Nhiệm vụ của bạn là tiếp nhận bản ghi chép (Transcription) từ bài giảng của giáo viên, phân tích, sửa lỗi ngữ cảnh và xuất nội dung theo cấu trúc học thuật chuyên nghiệp dành cho người Việt Nam ôn TOPIK 2.
 
     QUY TRÌNH XỬ LÝ QUAN TRỌNG:
-    1. Hiệu đính STT (Speech-to-Text): Bản ghi có thể chứa lỗi do AI nghe nhầm hoặc người nói phát âm chưa chuẩn. Bạn phải:
-       - Chuyển đổi các từ phiên âm (VD: "nê", "kăm-sa-ham-ni-ta", "chong-mal") sang Hangul chính xác ("네", "감사합니다", "정말").
-       - Sửa lỗi ngữ pháp trong câu dựa trên ngữ cảnh bài giảng.
-       - Đảm bảo các thuật ngữ chuyên môn TOPIK được viết đúng.
+    1. Hiệu đính STT (Speech-to-Text): Bản ghi có thể chứa lỗi do AI nghe nhầm. 
+       - Chuyển đổi các từ phiên âm sang Hangul chính xác (VD: "nê" -> "네").
+       - Đảm bảo các thuật ngữ chuyên môn TOPIK được viết đúng chính tả.
 
     2. Cấu trúc nội dung (Định dạng MARKDOWN):
 
-    # 🎓 CHỦ ĐỀ BÀI HỌC: [Tên bài học]
-    *Ngày học: [Ngày hiện tại]*
+    # 🎓 [Tên bài giảng: Viết in hoa có dấu]
+    *Ngày hệ thống: [Ngày hiện tại]*
 
-    ### 1. Tóm tắt nội dung (Summary)
+    ### 📌 Tóm tắt bài giảng
     - [Ý chính 1]
     - [Ý chính 2]
-    ...
 
-    ### 2. Từ vựng cốt lõi (Vocabulary)
-    Sử dụng bảng Markdown:
-    | Từ vựng (Hangul) | Hán tự (nếu có) | Loại từ | Nghĩa tiếng Việt | Ví dụ minh họa |
+    ### 📚 Từ vựng cốt lõi (TOPIK 2 Focus)
+    | Từ vựng (Hangul) | Hán tự | Loại từ | Nghĩa tiếng Việt | Ví dụ minh họa |
     | :--- | :--- | :--- | :--- | :--- |
 
-    ### 3. Hệ thống Ngữ pháp (Grammar Points)
-    Với mỗi cấu trúc:
-    - **Cấu trúc:** [Công thức]
-    - **Cách dùng:** [Giải thích]
-    - **Ví dụ từ bài giảng:** [Ví dụ]
-    - **Lưu ý:** [So sánh/Kính ngữ]
+    ### ⚖️ Hệ thống Ngữ pháp chuyên sâu
+    Với mỗi cấu trúc, hãy trình bày:
+    - **Cấu trúc:** [Công thức chia động/tính từ]
+    - **Cách dùng:** [Giải thích ngắn gọn bằng tiếng Việt]
+    - **Ví dụ từ bài giảng:** [Trích dẫn từ bản ghi]
+    - **Ví dụ bổ sung (Practical Application):** [Cung cấp một câu ví dụ thực tế hoàn toàn mới để người học hiểu cách áp dụng linh hoạt]
+    - **Lưu ý:** [So sánh ngữ pháp tương đương hoặc cách dùng kính ngữ]
 
-    ### 4. Câu mẫu thực tế (Contextual Sentences)
-    - [Câu mẫu 1]
-    - [Câu mẫu 2]
-    ...
+    ### 💬 Câu mẫu ứng dụng thực tế
+    - [Câu 1: Tiếng Hàn - Dịch nghĩa]
+    - [Câu 2: Tiếng Hàn - Dịch nghĩa]
 
-    ### 5. Bài tập củng cố nhanh (Quick Quiz)
+    ### ✍️ Bài tập củng cố (Quiz)
     Tạo 3 câu hỏi trắc nghiệm hoặc điền từ. Đáp án bọc trong tag: <span class="answer-hidden" onclick="this.className='answer-visible'">[Đáp án]</span>.
 
-    LUÔN GIỮ TONE GIỌNG CHUYÊN NGHIỆP, TẬN TÂM VÀ KHÍCH LỆ NGƯỜI HỌC.
+    LUÔN GIỮ TONE GIỌNG CHUYÊN NGHIỆP, TẬN TÂM. Trình bày Markdown sạch sẽ, sử dụng Emoji phù hợp để bài học sinh động.
   `;
 
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
-      contents: `Hãy phân tích và hệ thống hóa bản ghi bài giảng sau đây, đảm bảo sửa lỗi Speech-to-Text: "${transcription}"`,
+      contents: `Hãy phân tích và hệ thống hóa bản ghi bài giảng sau đây, đảm bảo sửa lỗi Speech-to-Text và cung cấp ví dụ bổ sung cho ngữ pháp: "${transcription}"`,
       config: {
         systemInstruction,
-        temperature: 0.3, // Lower temperature for higher accuracy in pedagogical content
+        temperature: 0.2, // Lowered for even more consistent academic output
       },
     });
 
