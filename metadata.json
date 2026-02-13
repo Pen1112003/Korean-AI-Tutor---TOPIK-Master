@@ -1,0 +1,7 @@
+{
+  "name": "Korean AI Tutor - TOPIK Master",
+  "description": "An intelligent AI assistant for Vietnamese learners of Korean, specializing in converting lecture transcripts into structured academic lesson plans for TOPIK 2 preparation.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
